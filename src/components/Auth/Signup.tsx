@@ -56,7 +56,6 @@ const Signup = ({
       setIsAuthModal(false);
       setIsThanksModal(true);
       toast.success(`Verification email sent to your email.`);
-      // router.push("/verify-email?to=" + sentToEmail);
     },
   });
 
