@@ -35,7 +35,6 @@ const Login = ({ setIsSignupForm }: LoginProps) => {
       toast.success("Signed in successfully");
 
       router.refresh();
-      // test
       // if (origin) {
       //   router.push(`/${origin}`);
       //   return;
