@@ -16,9 +16,10 @@ import { useRouter } from "next/navigation";
 
 interface LoginProps {
   setIsSignupForm: (open: boolean) => void;
+  setIsAuthModal: (open: boolean) => void;
 }
 
-const Login = ({ setIsSignupForm }: LoginProps) => {
+const Login = ({ setIsSignupForm, setIsAuthModal }: LoginProps) => {
   const [isLoginSeller, setIsLoginSeller] = useState<boolean>(false);
   const router = useRouter();
 
@@ -45,7 +46,7 @@ const Login = ({ setIsSignupForm }: LoginProps) => {
         return;
       }
 
-      router.push("/");
+      setIsAuthModal(false);
     },
     onError: (err) => {
       if (err.data?.code === "UNAUTHORIZED") {
