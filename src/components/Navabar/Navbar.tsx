@@ -37,6 +37,7 @@ const Navbar = () => {
 
   return (
     <section className="bg-white sticky z-10 top-0 inset-x-0 h-16 shadow-lg">
+      {/* signup and login Modal */}
       <AuthModal
         onClose={closeModalHandler}
         openModal={isAuthModal}
