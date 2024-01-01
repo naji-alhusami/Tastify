@@ -68,6 +68,7 @@ const Navbar = () => {
         )}
       </AuthModal>
 
+      {/* Thanks Modal */}
       <ThanksModal
         onClose={closeModalHandler}
         openModal={isThanksModal}
