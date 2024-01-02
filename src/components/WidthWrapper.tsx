@@ -10,7 +10,7 @@ const WidthWrapper = ({ className, children }: WidthWrapperProps) => {
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-screen-xl px-5 md:px-12",
+        "mx-auto w-full max-w-screen-xl",
         className
       )}
     >

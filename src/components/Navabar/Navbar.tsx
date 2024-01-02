@@ -16,6 +16,7 @@ import ThanksModal from "../ui/ThanksModal";
 import Login from "../Auth/Login";
 import { User } from "@/payload-types";
 import UserNavbar from "./UserNavbar";
+import WidthWrapper from "../WidthWrapper";
 
 interface NavbarProps {
   user: User | null;
@@ -98,63 +99,67 @@ const Navbar = ({ user }: NavbarProps) => {
         }
       />
       <section className="bg-white sticky z-10 top-0 inset-x-0 h-16 shadow-lg">
-        <header className="h-full flex flex-row items-center justify-between mx-1 md:mx-8 lg:mx-16">
-          <div className=" p-3 m-2 hover:bg-rose-100 hover:rounded-full hover:p-3 md:hidden">
-            {user ? (
-              <UserNavbar user={user} />
-            ) : (
-              <CircleUserRound
-                className="text-rose-500 h-6 w-6"
-                onClick={openLoginModalHandler}
-              />
-            )}
-          </div>
-          <div className="ml-0 md:ml-4">
-            <Link href="/">
-              <h1 className={cn(" text-rose-500 text-4xl", pacifico.className)}>
-                Tastify
-              </h1>
-            </Link>
-          </div>
-
-          <div className="md:flex md:flex-row">
-            <div className="hidden md:flex md:flex-row md:justify-center md:items-center">
-              {user ? null : (
-                <Button
-                  className="mr-2"
-                  variant="ring"
-                  onClick={openLoginModalHandler}
-                >
-                  Log in
-                </Button>
-              )}
+        <WidthWrapper>
+          <header className="h-full flex flex-row items-center justify-between">
+            <div className=" p-3 m-2 hover:bg-rose-100 hover:rounded-full hover:p-3 md:hidden">
               {user ? (
-                <div className="p-3 hover:bg-rose-100 hover:rounded-full hover:p-3">
-                  <UserNavbar user={user} />
-                </div>
+                <UserNavbar user={user} />
               ) : (
-                <Button className="mr-8" onClick={openSignupModalHandler}>
-                  Sign up
-                </Button>
+                <CircleUserRound
+                  className="text-rose-500 h-6 w-6"
+                  onClick={openLoginModalHandler}
+                />
               )}
             </div>
-            <div className="m-1 p-3 hover:bg-rose-100 hover:rounded-full hover:p-3 ">
-              <ShoppingCart className="text-rose-500 h-6 w-6" />
+            <div className="ml-0 md:ml-4">
+              <Link href="/">
+                <h1
+                  className={cn(" text-rose-500 text-4xl", pacifico.className)}
+                >
+                  Tastify
+                </h1>
+              </Link>
             </div>
-          </div>
-        </header>
-        {/* <div className="hidden lg:flex flex-row items-center justify-center w-full"> */}
-        {/* <NavMenuItems /> */}
-        {/* <div className=" border-rounded-full flex flex-row ">
+
+            <div className="md:flex md:flex-row">
+              <div className="hidden md:flex md:flex-row md:justify-center md:items-center">
+                {user ? null : (
+                  <Button
+                    className="mr-2"
+                    variant="ring"
+                    onClick={openLoginModalHandler}
+                  >
+                    Log in
+                  </Button>
+                )}
+                {user ? (
+                  <div className="p-3 hover:bg-rose-100 hover:rounded-full hover:p-3">
+                    <UserNavbar user={user} />
+                  </div>
+                ) : (
+                  <Button className="mr-8" onClick={openSignupModalHandler}>
+                    Sign up
+                  </Button>
+                )}
+              </div>
+              <div className="m-1 p-3 hover:bg-rose-100 hover:rounded-full hover:p-3 ">
+                <ShoppingCart className="text-rose-500 h-6 w-6" />
+              </div>
+            </div>
+          </header>
+          {/* <div className="hidden lg:flex flex-row items-center justify-center w-full"> */}
+          {/* <NavMenuItems /> */}
+          {/* <div className=" border-rounded-full flex flex-row ">
           <input
             type="text"
             className="w-full p-2 rounded-md bg-gray-100 mr-1 border-rose-300"
             placeholder="Search For Restaurant..."
           /> */}
-        {/* <Search className="absolute right-0 top-2 text-gray-500" /> */}
-        {/* <Button variant={"outline"}>Search</Button>
+          {/* <Search className="absolute right-0 top-2 text-gray-500" /> */}
+          {/* <Button variant={"outline"}>Search</Button>
         </div>
       </div> */}
+        </WidthWrapper>
       </section>
     </>
 

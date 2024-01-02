@@ -1,3 +1,4 @@
+import OrderSteps from "@/components/Home/OrderSteps";
 import Starting from "@/components/Home/Starting";
 
 export default function HomePage() {
@@ -9,6 +10,7 @@ export default function HomePage() {
         <Button>Search</Button>
       </div> */}
       <Starting />
+      <OrderSteps />
     </div>
   );
 }
