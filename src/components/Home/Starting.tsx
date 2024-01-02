@@ -1,13 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import WidthWrapper from "../WidthWrapper";
 import HomeImage from "../../../public/images/home-image.jpg";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import AddressLocator from "@/lib/locate-address";
 
 const Starting = () => {
+  const [address, setAddress] = useState<string | null>(null);
+
   return (
     <div>
       <div>
@@ -28,8 +31,10 @@ const Starting = () => {
               type="text"
               className="focus-visible:ring-red-500"
               placeholder="Locate Address"
+              value={address || ''}
             />
-            <Button>Locate Me</Button>
+            {/* <Button>Locate Me</Button> */}
+            <AddressLocator setAddress={setAddress} />
           </div>
         </div>
       </WidthWrapper>
