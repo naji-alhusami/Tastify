@@ -1,11 +1,10 @@
-import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { LocateFixed } from "lucide-react";
 
-interface AddressLocatorProps {
-  setAddress: (open: string | null) => void;
-}
+const AddressLocator: FC = () => {
+  const [address, setAddress] = useState<string | null>(null);
 
-const AddressLocator: React.FC<AddressLocatorProps> = ({ setAddress }) => {
   const determineAddress = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -33,9 +32,20 @@ const AddressLocator: React.FC<AddressLocatorProps> = ({ setAddress }) => {
   };
 
   return (
-    <div>
-      <Button onClick={determineAddress}>Locate Me</Button>
-    </div>
+    <>
+      <Input
+        type="text"
+        className="focus-visible:ring-red-500"
+        placeholder="Locate Address"
+        value={address || ""}
+      />
+      <button
+        className="absolute right-8 top-6 md:right-32 md:top-6 cursor-pointer"
+        onClick={determineAddress}
+      >
+        <LocateFixed size={20} />
+      </button>
+    </>
   );
 };
 

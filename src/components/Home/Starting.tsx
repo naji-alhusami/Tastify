@@ -1,16 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 
 import WidthWrapper from "../WidthWrapper";
 import HomeImage from "../../../public/images/home-image.jpg";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import AddressLocator from "@/lib/locate-address";
 
 const Starting = () => {
-  const [address, setAddress] = useState<string | null>(null);
-
   return (
     <div>
       <div>
@@ -26,15 +23,9 @@ const Starting = () => {
             Everything You Need Is Brought To Your Door With Our{" "}
             <span className="text-rose-500">Delivery Service</span>..
           </h1>
-          <div className=" w-full flex flex-col justify-center bg-white p-4 rounded-md gap-2 shadow-lg md:absolute md:top-48 md:flex-row md:max-w-2xl lg:top-80">
-            <Input
-              type="text"
-              className="focus-visible:ring-red-500"
-              placeholder="Locate Address"
-              value={address || ''}
-            />
-            {/* <Button>Locate Me</Button> */}
-            <AddressLocator setAddress={setAddress} />
+          <div className="relative w-full flex flex-col justify-center bg-white p-4 rounded-md gap-2 shadow-lg md:absolute md:top-48 md:flex-row md:max-w-2xl lg:top-80">
+            <AddressLocator />
+            <Button>Find Food</Button>
           </div>
         </div>
       </WidthWrapper>
