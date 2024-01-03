@@ -1,13 +1,24 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 
 import WidthWrapper from "../WidthWrapper";
 import HomeImage from "../../../public/images/home-image.jpg";
 import { Button } from "../ui/button";
 import AddressLocator from "@/lib/locate-address";
+import StateContext from "@/store/state-context";
 
 const Starting = () => {
+  const contextValue = useContext(StateContext);
+
+  if (!contextValue) {
+    // We should handle the case when contextValue is null
+    return null; // or any other fallback logic
+  }
+
+  const { address } = contextValue;
+  console.log(address);
+
   return (
     <div>
       <div>

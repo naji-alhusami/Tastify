@@ -1,9 +1,18 @@
-import React, { FC, useState } from "react";
+"use client";
+import React, { FC, useContext, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { LocateFixed } from "lucide-react";
+import StateContext from "@/store/state-context";
 
 const AddressLocator: FC = () => {
-  const [address, setAddress] = useState<string | null>(null);
+  const contextValue = useContext(StateContext);
+
+  if (!contextValue) {
+    // We should handle the case when contextValue is null
+    return null; // or any other fallback logic
+  }
+
+  const { address, setAddress } = contextValue;
 
   const determineAddress = () => {
     if ("geolocation" in navigator) {
@@ -37,7 +46,8 @@ const AddressLocator: FC = () => {
         type="text"
         className="focus-visible:ring-red-500"
         placeholder="Locate Address"
-        value={address || ""}
+        defaultValue={address || ""}
+        readOnly
       />
       <button
         className="absolute right-8 top-6 md:right-32 md:top-6 cursor-pointer"

@@ -6,6 +6,7 @@ import Providers from "@/components/Providers";
 import { Toaster } from "sonner";
 import { cookies } from "next/headers";
 import { getServerSideUser } from "@/lib/payload-utils";
+import ContextProvider from "@/store/context-provider";
 // import { inter, pacifico } from "./fonts";
 
 export const metadata: Metadata = {
@@ -30,14 +31,16 @@ export default async function RootLayout({
           // pacifico.className
         )}
       >
-        <main className="relative flex flex-col min-h-screen">
-          <Providers>
-            <div id="modal-hook"></div>
-            <div id="backdrop-hook"></div>
-            <Navbar user={user} />
-            <div className="flex-grow flex-1">{children}</div>
-          </Providers>
-        </main>
+        <ContextProvider>
+          <main className="relative flex flex-col min-h-screen">
+            <Providers>
+              <div id="modal-hook"></div>
+              <div id="backdrop-hook"></div>
+              <Navbar user={user} />
+              <div className="flex-grow flex-1">{children}</div>
+            </Providers>
+          </main>
+        </ContextProvider>
         <Toaster position="top-center" richColors />
       </body>
     </html>
