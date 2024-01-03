@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { pacifico } from "@/app/fonts";
@@ -8,6 +8,7 @@ import {
   ShoppingCart,
   XCircle,
   MailCheck,
+  MapPin,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import Signup from "../Auth/Signup";
@@ -17,6 +18,8 @@ import Login from "../Auth/Login";
 import { User } from "@/payload-types";
 import UserNavbar from "./UserNavbar";
 import WidthWrapper from "../WidthWrapper";
+import { usePathname } from "next/navigation";
+import StateContext from "@/store/state-context";
 
 interface NavbarProps {
   user: User | null;
@@ -26,6 +29,16 @@ const Navbar = ({ user }: NavbarProps) => {
   const [isAuthModal, setIsAuthModal] = useState<boolean>(false);
   const [isThanksModal, setIsThanksModal] = useState<boolean>(false);
   const [isSignupForm, setIsSignupForm] = useState<boolean>(false);
+  const contextValue = useContext(StateContext);
+  const pathname = usePathname();
+
+  if (!contextValue) {
+    // We should handle the case when contextValue is null
+    return null; // or any other fallback logic
+  }
+
+  const { address } = contextValue;
+  console.log(address);
 
   const openSignupModalHandler = () => {
     setIsSignupForm(true);
@@ -98,10 +111,17 @@ const Navbar = ({ user }: NavbarProps) => {
           </div>
         }
       />
-      <section className="bg-white sticky z-10 top-0 inset-x-0 h-16 shadow-lg">
+
+      {/* Navbar */}
+      <section
+        className={cn("bg-white sticky z-10 top-0 inset-x-0 shadow-lg", {
+          "h-48 lg:h-32": pathname === "/restaurants",
+          "h-16": pathname === "/",
+        })}
+      >
         <WidthWrapper>
           <header className="h-full flex flex-row items-center justify-between">
-            <div className=" p-3 m-2 hover:bg-rose-100 hover:rounded-full hover:p-3 md:hidden">
+            <div className=" p-3 m-2 hover:bg-rose-100 hover:rounded-full hover:p-3 lg:hidden">
               {user ? (
                 <UserNavbar user={user} />
               ) : (
@@ -120,9 +140,21 @@ const Navbar = ({ user }: NavbarProps) => {
                 </h1>
               </Link>
             </div>
+            {pathname === "/restaurants" && (
+              <div className="hidden  lg:flex lg:flex-row lg:items-center lg:justify-start  lg:px-12">
+                <MapPin className="lg:h-8 lg:w-8" />
+                {address ? (
+                  <p className="text-rose-500 xl:max-w-xl lg:max-w-lg lg:overflow-hidden lg:whitespace-nowrap lg:overflow-ellipsis">
+                    {address}
+                  </p>
+                ) : (
+                  <p>Loading...</p>
+                )}
+              </div>
+            )}
 
-            <div className="md:flex md:flex-row">
-              <div className="hidden md:flex md:flex-row md:justify-center md:items-center">
+            <div className="lg:flex lg:flex-row">
+              <div className="hidden lg:flex lg:flex-row lg:justify-center lg:items-center">
                 {user ? null : (
                   <Button
                     className="mr-2"
@@ -147,7 +179,18 @@ const Navbar = ({ user }: NavbarProps) => {
               </div>
             </div>
           </header>
-          {/* <div className="hidden lg:flex flex-row items-center justify-center w-full"> */}
+          {pathname === "/restaurants" && (
+            <div className="mx-4 flex flex-row items-center justify-start py-4 lg:hidden">
+              <MapPin className="h-8 w-8" />
+              {address ? (
+                <p className="text-rose-500 font-bold w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
+                  {address}
+                </p>
+              ) : (
+                <p>Loading...</p>
+              )}
+            </div>
+          )}
           {/* <NavMenuItems /> */}
           {/* <div className=" border-rounded-full flex flex-row ">
           <input

@@ -12,14 +12,15 @@ const AddressLocator: FC = () => {
     return null; // or any other fallback logic
   }
 
-  const { address, setAddress } = contextValue;
+  const { address, setAddress, setLat, setLon } = contextValue;
 
   const determineAddress = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-
+          setLat(latitude);
+          setLon(longitude);
           try {
             const response = await fetch(
               `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`

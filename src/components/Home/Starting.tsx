@@ -7,6 +7,7 @@ import HomeImage from "../../../public/images/home-image.jpg";
 import { Button } from "../ui/button";
 import AddressLocator from "@/lib/locate-address";
 import StateContext from "@/store/state-context";
+import Link from "next/link";
 
 const Starting = () => {
   const contextValue = useContext(StateContext);
@@ -16,7 +17,7 @@ const Starting = () => {
     return null; // or any other fallback logic
   }
 
-  const { address } = contextValue;
+  const { address, lat, lon } = contextValue;
   console.log(address);
 
   return (
@@ -36,6 +37,12 @@ const Starting = () => {
           </h1>
           <div className="relative w-full flex flex-col justify-center bg-white p-4 rounded-md gap-2 shadow-lg md:absolute md:top-48 md:flex-row md:max-w-2xl lg:top-80">
             <AddressLocator />
+            <Link
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              href={`/restaurants?lon=${lon}&lat=${lat}`}
+            >
+              Find Food
+            </Link>
             <Button>Find Food</Button>
           </div>
         </div>
