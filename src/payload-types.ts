@@ -9,6 +9,7 @@
 export interface Config {
   collections: {
     users: User;
+    restaurants: Restaurant;
     items: Item;
     media: Media;
     item_files: ItemFile;
@@ -34,9 +35,28 @@ export interface User {
   lockUntil?: string | null;
   password: string | null;
 }
+export interface Restaurant {
+  id: string;
+  name: string;
+  category: 'burgers' | 'pizzas' | 'pasta' | 'grills' | 'deserts';
+  owner?: (string | null) | User;
+  items?: (string | Item)[] | null;
+  approvedNewRestaurant?: ('pending' | 'approved' | 'denied') | null;
+  restaurantImage: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  restaurantLogo: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
 export interface Item {
   id: string;
   user?: (string | null) | User;
+  restaurant?: (string | null) | Restaurant;
   name: string;
   description: string;
   price: number;

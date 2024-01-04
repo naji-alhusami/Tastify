@@ -6,7 +6,21 @@ export const Items: CollectionConfig = {
   admin: {
     useAsTitle: "name", // for admin dashboard
   },
-  access: {},
+  access: {
+    create: async ({ req, data }) => {
+      // Check if the user is an admin
+      if (req.user.role === "admin") {
+        return true; // Non-admin users are not allowed to create items
+      }
+      console.log(req.context.restaurants);
+      // Check if the admin user has created a restaurant
+      // const restaurantCount = await data.lists.restaurants.count({
+      //   owner: req.user.id, // Assuming 'owner' field in the 'restaurants' collection
+      // });
+      // console.log("restaurantCount:", restaurantCount);
+      return true; // Return true if the user has at least one restaurant
+    },
+  },
   fields: [
     {
       name: "user", // created User
@@ -14,6 +28,16 @@ export const Items: CollectionConfig = {
       relationTo: "users", // users the other collection
       required: true, // imp to have user with items
       hasMany: false, // one item cannot be created by many people
+      admin: {
+        condition: () => false, // hide this field from admin dashboard
+      },
+    },
+    {
+      name: "restaurant",
+      type: "relationship",
+      relationTo: "restaurants",
+      required: true,
+      hasMany: false,
       admin: {
         condition: () => false, // hide this field from admin dashboard
       },
