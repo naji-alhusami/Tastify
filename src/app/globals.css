@@ -57,3 +57,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* .swiper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+} */
+
+/* .swiper-wrapper {
+  display: flex;
+} */

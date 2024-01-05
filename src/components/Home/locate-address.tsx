@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext } from "react";
 import { Input } from "@/components/ui/input";
 import { LocateFixed } from "lucide-react";
 import StateContext from "@/store/state-context";
@@ -45,7 +45,7 @@ const AddressLocator: FC = () => {
     <>
       <Input
         type="text"
-        className="focus-visible:ring-red-500"
+        className="focus-visible:ring-red-500 overflow-hidden whitespace-nowrap overflow-ellipsis"
         placeholder="Locate Address"
         defaultValue={address || ""}
         readOnly
@@ -54,7 +54,7 @@ const AddressLocator: FC = () => {
         className="absolute right-8 top-6 md:right-32 md:top-6 cursor-pointer"
         onClick={determineAddress}
       >
-        <LocateFixed size={20} />
+        <LocateFixed size={20} className="bg-white" />
       </button>
     </>
   );

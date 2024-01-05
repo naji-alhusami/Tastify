@@ -7,19 +7,19 @@ export const Items: CollectionConfig = {
     useAsTitle: "name", // for admin dashboard
   },
   access: {
-    create: async ({ req, data }) => {
-      // Check if the user is an admin
-      if (req.user.role === "admin") {
-        return true; // Non-admin users are not allowed to create items
-      }
-      console.log(req.context.restaurants);
-      // Check if the admin user has created a restaurant
-      // const restaurantCount = await data.lists.restaurants.count({
-      //   owner: req.user.id, // Assuming 'owner' field in the 'restaurants' collection
-      // });
-      // console.log("restaurantCount:", restaurantCount);
-      return true; // Return true if the user has at least one restaurant
-    },
+    // create: async ({ req, data }) => {
+    //   // Check if the user is an admin
+    //   if (req.user.role === "admin") {
+    //     return true; // Non-admin users are not allowed to create items
+    //   }
+    //   console.log(req.context.restaurants);
+    //   // Check if the admin user has created a restaurant
+    //   // const restaurantCount = await data.lists.restaurants.count({
+    //   //   owner: req.user.id, // Assuming 'owner' field in the 'restaurants' collection
+    //   // });
+    //   // console.log("restaurantCount:", restaurantCount);
+    //   return true; // Return true if the user has at least one restaurant
+    // },
   },
   fields: [
     {

@@ -38,7 +38,6 @@ const Navbar = ({ user }: NavbarProps) => {
   }
 
   const { address } = contextValue;
-  console.log(address);
 
   const openSignupModalHandler = () => {
     setIsSignupForm(true);
