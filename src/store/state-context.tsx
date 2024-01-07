@@ -7,6 +7,8 @@ interface ContextType {
   setLat: (lat: number | null) => void;
   lon: number | null;
   setLon: (lon: number | null) => void;
+  isRestaurants: boolean;
+  setIsRestaurants: (restaurants: boolean) => void;
 }
 
 const StateContext = createContext<null | ContextType>(null);

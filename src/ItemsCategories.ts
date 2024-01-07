@@ -1,6 +1,6 @@
 export const ITEMS_CATEGORIES = [
   {
-    label: "BURGERS",
+    label: "BURGER",
     value: "burgers" as const,
     href: "#",
     icon: "/images/burger.png",
@@ -24,7 +24,7 @@ export const ITEMS_CATEGORIES = [
     icon: "/images/grill.png",
   },
   {
-    label: "DESERTS",
+    label: "DESERT",
     value: "deserts" as const,
     href: "#",
     icon: "/images/desert.png",

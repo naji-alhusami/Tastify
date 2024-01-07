@@ -12,8 +12,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
   const [address, setAddress] = useState<string | null>(null);
   const [lat, setLat] = useState<number | null>(null);
   const [lon, setLon] = useState<number | null>(null);
+  const [isRestaurants, setIsRestaurants] = useState<boolean>(false);
 
-  const pathname = usePathname();
   const params = useSearchParams();
   const latString = params.get("lat");
   const lonString = params.get("lon");
@@ -32,6 +32,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     fetchAddress();
   }, [lata, lona, setAddress]);
 
+
+
   const value = {
     address,
     setAddress,
@@ -39,6 +41,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     setLat,
     lon,
     setLon,
+    isRestaurants,
+    setIsRestaurants
   };
 
   return (

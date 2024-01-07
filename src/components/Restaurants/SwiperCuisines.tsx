@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type SwiperType from "swiper";
@@ -12,9 +12,18 @@ import { ITEMS_CATEGORIES } from "@/ItemsCategories";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import StateContext from "@/store/state-context";
 
 const SwiperCuisines = () => {
   const [swiper, setSwiper] = useState<null | SwiperType>(null);
+  const contextValue = useContext(StateContext);
+
+  if (!contextValue) {
+    // We should handle the case when contextValue is null
+    return null; // or any other fallback logic
+  }
+
+  const { setIsRestaurants } = contextValue;
 
   const activeStyles =
     "active:scale-[0.97] grid opacity-100 hover:scale-105 absolute top-1/2 -translate-y-1/2 aspect-square h-8 w-8 z-50 place-items-center rounded-full border-2 bg-rose-500 border-rose-500";
@@ -85,7 +94,10 @@ const SwiperCuisines = () => {
             key={i}
             className="relative h-full mx-auto"
           >
-            <Link href="/">
+            <button
+              onClick={() => setIsRestaurants(true)}
+              className="hover:text-rose-500 hover:font-bold text-center"
+            >
               <Image
                 src={item.icon}
                 alt={item.value}
@@ -94,7 +106,7 @@ const SwiperCuisines = () => {
                 className="-z-10 h-16 w-16 object-cover object-center"
               />
               <p>{item.label}</p>
-            </Link>
+            </button>
           </SwiperSlide>
         ))}
       </Swiper>
