@@ -2,9 +2,8 @@
 import { Restaurant } from "@/payload-types";
 import { TQueryValidator } from "../../lib/validators/query-validator";
 import { trpc } from "@/trpc/client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import StateContext from "@/store/state-context";
-import { Skeleton } from "../ui/skeleton";
 import RestaurantsListing from "./RestaurantsListing";
 
 interface RestaurantsProps {
@@ -22,8 +21,7 @@ const Restaurants = (props: RestaurantsProps) => {
     return null; // or any other fallback logic
   }
 
-  const { isRestaurants, setIsRestaurants } = contextValue;
-  console.log(isRestaurants);
+  const { isRestaurant, showRestaurants } = contextValue;
 
   const { data: restaurantsResults, isLoading } =
     trpc.getRestaurants.useInfiniteQuery(
@@ -42,29 +40,22 @@ const Restaurants = (props: RestaurantsProps) => {
 
   let map: (Restaurant | null)[] = [];
 
-  if (restaurants && restaurants.length) {
+  if (showRestaurants && restaurants && restaurants.length) {
+    console.log("some rest");
+    map = restaurants.filter((rest) => rest.category === isRestaurant);
+  } else if (restaurants && restaurants.length) {
+    console.log("all rest");
     map = restaurants;
-  } else if (isLoading) {
+  } else if (isLoading && !showRestaurants) {
     map = new Array<null>(query.limit ?? FALLBACK_LIMIT).fill(null);
   }
   console.log(map);
+  console.log(isLoading);
+
   return (
     <div>
       {map.map((restaurant, i) => (
-        // !restaurant || !isRestaurants ? (
-        //   <div className="flex flex-col w-full" key={i}>
-        //     <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
-        //       <Skeleton className="h-full w-full" />
-        //     </div>
-        //   </div>
-        // ) : null
-        <RestaurantsListing
-          key={`restaurant-${i}`}
-          restaurant={restaurant}
-          isRestaurants={isRestaurants}
-          setIsRestaurants={setIsRestaurants}
-          index={i}
-        />
+        <RestaurantsListing key={`restaurant-${i}`} restaurant={restaurant} />
       ))}
     </div>
   );

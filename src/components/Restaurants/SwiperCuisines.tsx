@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type SwiperType from "swiper";
@@ -10,20 +10,31 @@ import { Pagination } from "swiper/modules";
 import { cn } from "@/lib/utils";
 import { ITEMS_CATEGORIES } from "@/ItemsCategories";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { Button } from "../ui/button";
 import StateContext from "@/store/state-context";
+import Link from "next/link";
 
-const SwiperCuisines = () => {
+interface SwiperCuisinesProps {
+  searchParams: {
+    lat: string;
+    lon: string;
+  };
+}
+
+const SwiperCuisines = ({ searchParams }: SwiperCuisinesProps) => {
   const [swiper, setSwiper] = useState<null | SwiperType>(null);
+  const [activeLink, setActiveLink] = useState<string>("");
   const contextValue = useContext(StateContext);
 
   if (!contextValue) {
     // We should handle the case when contextValue is null
     return null; // or any other fallback logic
   }
+  const { isRestaurant, setIsRestaurant, setShowRestaurants } = contextValue;
 
-  const { setIsRestaurants } = contextValue;
+  const restaurantsHandler = (name: string) => {
+    setIsRestaurant(name);
+    setShowRestaurants(true);
+  };
 
   const activeStyles =
     "active:scale-[0.97] grid opacity-100 hover:scale-105 absolute top-1/2 -translate-y-1/2 aspect-square h-8 w-8 z-50 place-items-center rounded-full border-2 bg-rose-500 border-rose-500";
@@ -75,10 +86,10 @@ const SwiperCuisines = () => {
             slidesPerView: 3,
           },
           1024: {
-            slidesPerView: 4,
+            slidesPerView: 3,
           },
           1110: {
-            slidesPerView: 5,
+            slidesPerView: 4,
           },
         }}
       >
@@ -94,9 +105,12 @@ const SwiperCuisines = () => {
             key={i}
             className="relative h-full mx-auto"
           >
-            <button
-              onClick={() => setIsRestaurants(true)}
-              className="hover:text-rose-500 hover:font-bold text-center"
+            <Link
+              href={`/restaurants/?lon=${searchParams.lon}&lat=${searchParams.lat}&cuisine=${item.value}`}
+              onClick={() => restaurantsHandler(item.value)}
+              className={`hover:text-rose-500 hover:font-bold text-center ${
+                isRestaurant === item.value ? "text-rose-500 font-bold" : ""
+              }`}
             >
               <Image
                 src={item.icon}
@@ -105,8 +119,8 @@ const SwiperCuisines = () => {
                 height={100}
                 className="-z-10 h-16 w-16 object-cover object-center"
               />
-              <p>{item.label}</p>
-            </button>
+              <p>{item.value}</p>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

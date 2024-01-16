@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import StateContext from "./state-context";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { getAddress } from "@/lib/get-address";
 
 interface ContextProviderProps {
@@ -12,7 +12,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
   const [address, setAddress] = useState<string | null>(null);
   const [lat, setLat] = useState<number | null>(null);
   const [lon, setLon] = useState<number | null>(null);
-  const [isRestaurants, setIsRestaurants] = useState<boolean>(false);
+  const [isRestaurant, setIsRestaurant] = useState<string | null>(null);
+  const [showRestaurants, setShowRestaurants] = useState<boolean>(false);
 
   const params = useSearchParams();
   const latString = params.get("lat");
@@ -30,9 +31,8 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     };
 
     fetchAddress();
+    setShowRestaurants(false);
   }, [lata, lona, setAddress]);
-
-
 
   const value = {
     address,
@@ -41,8 +41,10 @@ const ContextProvider = ({ children }: ContextProviderProps) => {
     setLat,
     lon,
     setLon,
-    isRestaurants,
-    setIsRestaurants
+    isRestaurant,
+    setIsRestaurant,
+    showRestaurants,
+    setShowRestaurants,
   };
 
   return (

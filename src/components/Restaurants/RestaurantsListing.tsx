@@ -2,43 +2,32 @@
 import React, { useEffect } from "react";
 import { Restaurant } from "../../payload-types";
 import { Skeleton } from "../ui/skeleton";
+import { ITEMS_CATEGORIES } from "@/ItemsCategories";
 
 interface RestaurantsListingProps {
-  isRestaurants: boolean;
-  setIsRestaurants: (restaurant: boolean) => void;
   restaurant: Restaurant | null;
-  index: number;
 }
 
-const RestaurantsListing = ({
-  restaurant,
-//   index,
-  isRestaurants,
-//   setIsRestaurants,
-}: RestaurantsListingProps) => {
-    
-//   useEffect(() => {
-//     const timer = setTimeout(() => {
-//       setIsRestaurants(true);
-//     }, index * 75);
-
-//     return () => clearTimeout(timer);
-//   }, [index, setIsRestaurants]);
-
-  if (!restaurant || !isRestaurants)
+const RestaurantsListing = ({ restaurant }: RestaurantsListingProps) => {
+  if (!restaurant) {
     return (
       <div className="flex flex-col w-full">
         <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
           <Skeleton className="h-full w-full" />
         </div>
+        <Skeleton className="mt-4 w-2/3 h-4 rounded-lg" />
+        <Skeleton className="mt-2 w-16 h-4 rounded-lg" />
+        <Skeleton className="mt-2 w-12 h-4 rounded-lg" />
       </div>
     );
+  }
 
-  return (
-    <div>
-      <h1>naji</h1>
-    </div>
-  );
+  if (restaurant)
+    return (
+      <div>
+        <h1>Restaurants</h1>
+      </div>
+    );
 };
 
 export default RestaurantsListing;
