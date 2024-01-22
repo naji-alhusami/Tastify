@@ -113,7 +113,7 @@ const Navbar = ({ user }: NavbarProps) => {
 
       {/* Navbar */}
       <section
-        className={cn("bg-white sticky z-10 top-0 inset-x-0 shadow-lg", {
+        className={cn("bg-white sticky z-50 top-0 inset-x-0 shadow-lg", {
           "h-48 lg:h-32": pathname === "/restaurants",
           "h-16": pathname === "/",
         })}
@@ -140,8 +140,8 @@ const Navbar = ({ user }: NavbarProps) => {
               </Link>
             </div>
             {pathname === "/restaurants" && (
-              <div className="hidden  lg:flex lg:flex-row lg:items-center lg:justify-start  lg:px-12">
-                <MapPin className="lg:h-8 lg:w-8" />
+              <div className="hidden text-center  lg:flex lg:flex-row lg:items-center lg:justify-center  lg:px-12">
+                <MapPin  className="lg:h-8 lg:w-8" />
                 {address ? (
                   <p className="text-rose-500 xl:max-w-xl lg:max-w-lg lg:overflow-hidden lg:whitespace-nowrap lg:overflow-ellipsis">
                     {address}
@@ -179,10 +179,10 @@ const Navbar = ({ user }: NavbarProps) => {
             </div>
           </header>
           {pathname === "/restaurants" && (
-            <div className="mx-4 flex flex-row items-center justify-start py-4 lg:hidden">
+            <div className="mx-4 text-center flex flex-row items-center justify-center py-4 lg:hidden">
               <MapPin className="h-8 w-8" />
               {address ? (
-                <p className="text-rose-500 font-bold w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
+                <p className="text-rose-500 font-bold overflow-hidden whitespace-nowrap overflow-ellipsis">
                   {address}
                 </p>
               ) : (

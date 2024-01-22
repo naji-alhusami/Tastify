@@ -41,10 +41,8 @@ const Restaurants = (props: RestaurantsProps) => {
   let map: (Restaurant | null)[] = [];
 
   if (showRestaurants && restaurants && restaurants.length) {
-    console.log("some rest");
     map = restaurants.filter((rest) => rest.category === isRestaurant);
   } else if (restaurants && restaurants.length) {
-    console.log("all rest");
     map = restaurants;
   } else if (isLoading && !showRestaurants) {
     map = new Array<null>(query.limit ?? FALLBACK_LIMIT).fill(null);
@@ -53,7 +51,7 @@ const Restaurants = (props: RestaurantsProps) => {
   console.log(isLoading);
 
   return (
-    <div>
+    <div className="m-8 flex flex-col md:flex md:flex-row md:justify-center md:items-center">
       {map.map((restaurant, i) => (
         <RestaurantsListing key={`restaurant-${i}`} restaurant={restaurant} />
       ))}
